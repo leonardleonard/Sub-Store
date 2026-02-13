@@ -22,6 +22,10 @@ console.log(
 import migrate from '@/utils/migration';
 import serve from '@/restful';
 
-migrate();
+try {
+    migrate();
+} catch (e) {
+    console.error('Migration failed:', e);
+}
 const app = serve();
 export default app;

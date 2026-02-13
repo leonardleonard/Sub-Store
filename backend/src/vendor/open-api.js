@@ -89,7 +89,8 @@ export class OpenAPI {
         if (isNode) {
             // create a json for root cache
             const basePath =
-                eval('process.env.SUB_STORE_DATA_BASE_PATH') || '.';
+                eval('process.env.SUB_STORE_DATA_BASE_PATH') ||
+                (eval('process.env.VERCEL') ? '/tmp' : '.');
             let rootPath = `${basePath}/root.json`;
             const backupRootPath = `${basePath}/root_${Date.now()}.json`;
 
@@ -161,20 +162,23 @@ export class OpenAPI {
         if (isGUIforCores) $Plugins.SubStoreCache.set(this.name, data);
         if (isNode) {
             const basePath =
-                eval('process.env.SUB_STORE_DATA_BASE_PATH') || '.';
+                eval('process.env.SUB_STORE_DATA_BASE_PATH') ||
+                (eval('process.env.VERCEL') ? '/tmp' : '.');
 
-            this.node.fs.writeFileSync(
-                `${basePath}/${this.name}.json`,
-                data,
-                { flag: 'w' },
-                (err) => console.log(err),
-            );
-            this.node.fs.writeFileSync(
-                `${basePath}/root.json`,
-                JSON.stringify(this.root, null, 2),
-                { flag: 'w' },
-                (err) => console.log(err),
-            );
+            try {
+                this.node.fs.writeFileSync(
+                    `${basePath}/${this.name}.json`,
+                    data,
+                    { flag: 'w' },
+                );
+                this.node.fs.writeFileSync(
+                    `${basePath}/root.json`,
+                    JSON.stringify(this.root, null, 2),
+                    { flag: 'w' },
+                );
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 
