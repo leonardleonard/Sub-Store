@@ -23,6 +23,27 @@ import registerMiscRoutes from './miscs';
 import registerNodeInfoRoutes from './node-info';
 import registerParserRoutes from './parser';
 
+function readBooleanEnv(name, defaultValue = false) {
+    const raw = eval(`process.env.${name}`);
+    if (raw == null || raw === '') return defaultValue;
+    if (typeof raw === 'boolean') return raw;
+    const normalized = String(raw).trim().toLowerCase();
+    if (['1', 'true', 'yes', 'on'].includes(normalized)) return true;
+    if (['0', 'false', 'no', 'off'].includes(normalized)) return false;
+    return defaultValue;
+}
+
+function ensureLeadingSlashPath(pathValue, fallback = '/api') {
+    const value =
+        typeof pathValue === 'string' && pathValue.trim()
+            ? pathValue.trim()
+            : fallback;
+    if (!value.startsWith('/')) {
+        throw new Error('SUB_STORE_FRONTEND_BACKEND_PATH should start with /');
+    }
+    return value;
+}
+
 export default function serve() {
     let port;
     let host;
@@ -32,24 +53,20 @@ export default function serve() {
     }
     const $app = express({ substore: $, port, host });
     if ($.env.isNode) {
-        const be_merge = eval('process.env.SUB_STORE_BACKEND_MERGE');
-        const be_prefix = eval('process.env.SUB_STORE_BACKEND_PREFIX');
+        const be_merge = readBooleanEnv('SUB_STORE_BACKEND_MERGE');
+        const be_prefix = readBooleanEnv('SUB_STORE_BACKEND_PREFIX');
         const fe_be_path = eval('process.env.SUB_STORE_FRONTEND_BACKEND_PATH');
         const fe_path = eval('process.env.SUB_STORE_FRONTEND_PATH');
         if (be_prefix || be_merge) {
-            if (!fe_be_path.startsWith('/')) {
-                throw new Error(
-                    'SUB_STORE_FRONTEND_BACKEND_PATH should start with /',
-                );
-            }
+            const backendPath = ensureLeadingSlashPath(fe_be_path);
             if (be_merge) {
                 $.info(`[BACKEND] MERGE mode is [ON].`);
                 $.info(`[BACKEND && FRONTEND] ${host}:${port}`);
             }
-            $.info(`[BACKEND PREFIX] ${host}:${port}${fe_be_path}`);
+            $.info(`[BACKEND PREFIX] ${host}:${port}${backendPath}`);
             $app.use((req, res, next) => {
-                if (req.path.startsWith(fe_be_path)) {
-                    req.url = req.url.replace(fe_be_path, '') || '/';
+                if (req.path.startsWith(backendPath)) {
+                    req.url = req.url.replace(backendPath, '') || '/';
                     if (be_merge && req.url.startsWith('/api/')) {
                         req.query['share'] = 'true';
                     }
