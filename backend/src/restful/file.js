@@ -1,15 +1,15 @@
-import { deleteByName, findByName, updateByName } from '@/utils/database';
-import { getFlowHeaders, normalizeFlowHeader } from '@/utils/flow';
-import { FILES_KEY, ARTIFACTS_KEY } from '@/constants';
-import { failed, success } from '@/restful/response';
-import $ from '@/core/app';
+import { deleteByName, findByName, updateByName } from '../utils/database';
+import { getFlowHeaders, normalizeFlowHeader } from '../utils/flow';
+import { FILES_KEY, ARTIFACTS_KEY } from '../constants';
+import { failed, success } from './response';
+import $ from '../core/app';
 import {
     RequestInvalidError,
     ResourceNotFoundError,
     InternalServerError,
-} from '@/restful/errors';
-import { produceArtifact } from '@/restful/sync';
-import { formatDateTime } from '@/utils';
+} from './errors';
+import { produceArtifact } from './sync';
+import { formatDateTime } from '../utils';
 
 export default function register($app) {
     if (!$.read(FILES_KEY)) $.write([], FILES_KEY);

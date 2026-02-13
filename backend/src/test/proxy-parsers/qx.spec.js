@@ -1,4 +1,4 @@
-import getQXParser from '@/core/proxy-utils/parsers/peggy/qx';
+import getQXParser from '../../core/proxy-utils/parsers/peggy/qx';
 import { describe, it } from 'mocha';
 import testcases from './testcases';
 import { expect } from 'chai';

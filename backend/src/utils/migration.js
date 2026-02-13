@@ -6,8 +6,8 @@ import {
     RULES_KEY,
     FILES_KEY,
     TOKENS_KEY,
-} from '@/constants';
-import $ from '@/core/app';
+} from '../constants';
+import $ from '../core/app';
 
 export default function migrate() {
     migrateV2();

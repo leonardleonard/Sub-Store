@@ -1,4 +1,4 @@
-import getSurgeParser from '@/core/proxy-utils/parsers/peggy/surge';
+import getSurgeParser from '../../core/proxy-utils/parsers/peggy/surge';
 import { describe, it } from 'mocha';
 import testcases from './testcases';
 import { expect } from 'chai';

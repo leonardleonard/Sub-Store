@@ -1,9 +1,9 @@
-import $ from '@/core/app';
+import $ from '../core/app';
 import {
     RESOURCE_CACHE_KEY,
     DEFAULT_CACHE_TTL,
     SETTINGS_KEY,
-} from '@/constants';
+} from '../constants';
 
 class ResourceCache {
     constructor() {

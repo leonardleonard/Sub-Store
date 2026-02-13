@@ -1,8 +1,8 @@
 import { Base64 } from 'js-base64';
 import { Buffer } from 'buffer';
-import rs from '@/utils/rs';
-import YAML from '@/utils/yaml';
-import download, { downloadFile } from '@/utils/download';
+import rs from '../../utils/rs';
+import YAML from '../../utils/yaml';
+import download, { downloadFile } from '../../utils/download';
 import {
     isIPv4,
     isIPv6,
@@ -12,19 +12,19 @@ import {
     ipAddress,
     getRandomPort,
     numberToString,
-} from '@/utils';
+} from '../../utils';
 import PROXY_PROCESSORS, { ApplyProcessor } from './processors';
 import PROXY_PREPROCESSORS from './preprocessors';
 import PROXY_PRODUCERS from './producers';
 import PROXY_PARSERS from './parsers';
-import $ from '@/core/app';
-import { FILES_KEY, MODULES_KEY } from '@/constants';
-import { findByName } from '@/utils/database';
-import { produceArtifact } from '@/restful/sync';
-import { getFlag, removeFlag, getISO, MMDB } from '@/utils/geo';
-import Gist from '@/utils/gist';
+import $ from '../app';
+import { FILES_KEY, MODULES_KEY } from '../../constants';
+import { findByName } from '../../utils/database';
+import { produceArtifact } from '../../restful/sync';
+import { getFlag, removeFlag, getISO, MMDB } from '../../utils/geo';
+import Gist from '../../utils/gist';
 import { isPresent } from './producers/utils';
-import { doh } from '@/utils/dns';
+import { doh } from '../../utils/dns';
 import JSON5 from 'json5';
 
 function preprocess(raw) {

@@ -1,4 +1,4 @@
-import getLoonParser from '@/core/proxy-utils/parsers/peggy/loon';
+import getLoonParser from '../../core/proxy-utils/parsers/peggy/loon';
 import { describe, it } from 'mocha';
 import testcases from './testcases';
 import { expect } from 'chai';

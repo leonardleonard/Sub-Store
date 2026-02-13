@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { Base64 } from 'js-base64';
-import { isIPv6 } from '@/utils';
+import { isIPv6 } from '../../../utils';
 
 function vless(proxy) {
     let security = 'none';

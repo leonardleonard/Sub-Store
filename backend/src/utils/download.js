@@ -1,20 +1,20 @@
-import { SETTINGS_KEY, FILES_KEY, MODULES_KEY } from '@/constants';
-import { HTTP, ENV } from '@/vendor/open-api';
-import { hex_md5 } from '@/vendor/md5';
-import { getPolicyDescriptor } from '@/utils';
-import resourceCache from '@/utils/resource-cache';
-import headersResourceCache from '@/utils/headers-resource-cache';
+import { SETTINGS_KEY, FILES_KEY, MODULES_KEY } from '../constants';
+import { HTTP, ENV } from '../vendor/open-api';
+import { hex_md5 } from '../vendor/md5';
+import { getPolicyDescriptor } from './';
+import resourceCache from './resource-cache';
+import headersResourceCache from './headers-resource-cache';
 import {
     getFlowField,
     getFlowHeaders,
     parseFlowHeaders,
     validCheck,
-} from '@/utils/flow';
-import $ from '@/core/app';
-import { findByName } from '@/utils/database';
-import { produceArtifact } from '@/restful/sync';
-import PROXY_PREPROCESSORS from '@/core/proxy-utils/preprocessors';
-import { ProxyUtils } from '@/core/proxy-utils';
+} from './flow';
+import $ from '../core/app';
+import { findByName } from './database';
+import { produceArtifact } from '../restful/sync';
+import PROXY_PREPROCESSORS from '../core/proxy-utils/preprocessors';
+import { ProxyUtils } from '../core/proxy-utils';
 
 const clashPreprocessor = PROXY_PREPROCESSORS.find(
     (processor) => processor.name === 'Clash Pre-processor',

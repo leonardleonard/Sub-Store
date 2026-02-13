@@ -1,5 +1,5 @@
-import { isPresent } from '@/core/proxy-utils/producers/utils';
-import $ from '@/core/app';
+import { isPresent } from './utils';
+import $ from '../../app';
 
 export default function Shadowrocket_Producer() {
     const type = 'ALL';

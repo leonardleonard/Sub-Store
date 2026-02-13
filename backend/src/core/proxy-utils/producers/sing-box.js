@@ -1,6 +1,6 @@
 import ClashMeta_Producer from './clashmeta';
-import $ from '@/core/app';
-import { isIPv4, isIPv6, isPlainObject } from '@/utils';
+import $ from '../../app';
+import { isIPv4, isIPv6, isPlainObject } from '../../../utils';
 
 const ipVersions = {
     ipv4: 'ipv4_only',

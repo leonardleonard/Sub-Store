@@ -22,8 +22,8 @@ console.log(
 ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
 `,
 );
-import migrate from '@/utils/migration';
-import serve from '@/restful';
+import migrate from './utils/migration';
+import serve from './restful';
 
 console.log('Starting migration...');
 try {

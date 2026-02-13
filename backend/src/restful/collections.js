@@ -1,9 +1,9 @@
-import { deleteByName, findByName, updateByName } from '@/utils/database';
-import { COLLECTIONS_KEY, ARTIFACTS_KEY, FILES_KEY } from '@/constants';
-import { failed, success } from '@/restful/response';
-import $ from '@/core/app';
-import { RequestInvalidError, ResourceNotFoundError } from '@/restful/errors';
-import { formatDateTime } from '@/utils';
+import { deleteByName, findByName, updateByName } from '../utils/database';
+import { COLLECTIONS_KEY, ARTIFACTS_KEY, FILES_KEY } from '../constants';
+import { failed, success } from './response';
+import $ from '../core/app';
+import { RequestInvalidError, ResourceNotFoundError } from './errors';
+import { formatDateTime } from '../utils';
 
 export default function register($app) {
     if (!$.read(COLLECTIONS_KEY)) $.write({}, COLLECTIONS_KEY);
