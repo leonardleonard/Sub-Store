@@ -1,5 +1,5 @@
 import { Base64 } from 'js-base64';
-import _ from 'lodash';
+// import _ from 'lodash';
 import express from '@/vendor/express';
 import $ from '@/core/app';
 import migrate from '@/utils/migration';
@@ -139,6 +139,7 @@ export default function serve() {
     registerParserRoutes($app);
 
     if (process.env.VERCEL) {
+        console.log('Running on Vercel, exporting app instance');
         return $app;
     }
 

@@ -108,9 +108,13 @@ export class OpenAPI {
                 }
             }
             if (!isPlainObject(this.root)) {
-                this.node.fs.writeFileSync(rootPath, JSON.stringify({}), {
-                    flag: 'w',
-                });
+                try {
+                    this.node.fs.writeFileSync(rootPath, JSON.stringify({}), {
+                        flag: 'w',
+                    });
+                } catch (e) {
+                    console.error('Failed to write root cache:', e);
+                }
                 this.root = {};
             }
 
@@ -132,13 +136,21 @@ export class OpenAPI {
                             this.node.fs.readFileSync(`${fpath}`, 'utf-8'),
                         );
                         this.cache = JSON.parse(str);
-                        this.node.fs.writeFileSync(fpath, str, {
-                            flag: 'w',
-                        });
+                        try {
+                            this.node.fs.writeFileSync(fpath, str, {
+                                flag: 'w',
+                            });
+                        } catch (e) {
+                            console.error('Failed to write cache:', e);
+                        }
                         if (!isPlainObject(this.cache))
                             throw new Error('Invalid Data');
                     } catch (e) {
-                        this.node.fs.copyFileSync(fpath, backupPath);
+                        try {
+                            this.node.fs.copyFileSync(fpath, backupPath);
+                        } catch (copyError) {
+                            console.error('Failed to backup corrupted cache:', copyError);
+                        }
                         this.error(
                             `Failed to parse ${fpath}: ${e.message}. Backup created at ${backupPath}`,
                         );
@@ -146,9 +158,13 @@ export class OpenAPI {
                 }
             }
             if (!isPlainObject(this.cache)) {
-                this.node.fs.writeFileSync(fpath, JSON.stringify({}), {
-                    flag: 'w',
-                });
+                try {
+                    this.node.fs.writeFileSync(fpath, JSON.stringify({}), {
+                        flag: 'w',
+                    });
+                } catch (e) {
+                    console.error('Failed to init cache file:', e);
+                }
                 this.cache = {};
             }
         }

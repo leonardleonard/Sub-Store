@@ -12,6 +12,7 @@
  */
 import { version } from '../package.json';
 
+console.log('Sub-Store Starting...');
 console.log(
     `
 ┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
@@ -22,10 +23,14 @@ console.log(
 import migrate from '@/utils/migration';
 import serve from '@/restful';
 
+console.log('Starting migration...');
 try {
     migrate();
+    console.log('Migration finished.');
 } catch (e) {
     console.error('Migration failed:', e);
 }
+console.log('Starting server...');
 const app = serve();
+console.log('Server started/exported.');
 export default app;
