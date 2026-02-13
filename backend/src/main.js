@@ -11,6 +11,7 @@
  * @documentation: https://www.notion.so/Sub-Store-6259586994d34c11a4ced5c406264b46
  */
 import { version } from '../package.json';
+import './vercel-deps';
 
 console.log('Sub-Store Starting...');
 console.log(
