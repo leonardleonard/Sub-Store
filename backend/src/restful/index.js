@@ -38,10 +38,7 @@ function ensureLeadingSlashPath(pathValue, fallback = '/api') {
         typeof pathValue === 'string' && pathValue.trim()
             ? pathValue.trim()
             : fallback;
-    if (!value.startsWith('/')) {
-        throw new Error('SUB_STORE_FRONTEND_BACKEND_PATH should start with /');
-    }
-    return value;
+    return value.startsWith('/') ? value : `/${value}`;
 }
 
 export default function serve() {

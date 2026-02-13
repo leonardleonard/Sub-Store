@@ -32,6 +32,22 @@ try {
     console.error('Migration failed:', e);
 }
 console.log('Starting server...');
-const app = serve();
-console.log('Server started/exported.');
+let app;
+try {
+    app = serve();
+    console.log('Server started/exported.');
+} catch (e) {
+    console.error('Server init failed:', e);
+    app = (req, res) => {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.end(
+            JSON.stringify({
+                status: 'failed',
+                message:
+                    'Sub-Store server init failed. Check Vercel Runtime Logs for details.',
+            }),
+        );
+    };
+}
 export default app;
