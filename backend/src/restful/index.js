@@ -138,6 +138,10 @@ export default function serve() {
     registerMiscRoutes($app);
     registerParserRoutes($app);
 
+    if (process.env.VERCEL) {
+        return $app;
+    }
+
     $app.start();
 
     if ($.env.isNode) {
